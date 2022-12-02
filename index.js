@@ -15,7 +15,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dbil0nj.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://carfinder:1YMz3dN69hN8j2x3@cluster0.dbil0nj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -44,8 +44,11 @@ function verifyJWT(req, res, next) {
 
 async function run() {
   try {
-    await client.connect();
-
+    
+    console.log('connect to db')
+    app.get("/abcd",async(req,res)=>{
+      res.send('hello world')
+    })
     const verifyAdmin = async (req, res, next) => {
       const requester = req.decoded.email;
       const requesterAccount = await usersCollection.findOne({
